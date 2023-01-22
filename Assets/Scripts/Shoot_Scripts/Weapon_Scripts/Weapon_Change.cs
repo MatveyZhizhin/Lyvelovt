@@ -10,60 +10,100 @@ public class Weapon_Change : MonoBehaviour
     public GameObject[] weaponIcons;
     public GameObject[] droppedWeapons;
     public Image currentIcon;
-    public Text ammo;
+    public Text ammoText;
     bool isStaying;
+    bool onCollision;
+    int currentWeapon = 0;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && unlockedWeapons.Count > 1)
+        if(Input.GetAxis("Mouse ScrollWheel") > 0 && unlockedWeapons.Count > 1)
+        {                      
+            if (currentWeapon == unlockedWeapons.Count - 1)
+            {
+                currentWeapon = 0;
+            }
+            else
+            {
+                currentWeapon++;
+            }
+            Change(currentWeapon);
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0 && unlockedWeapons.Count > 1)
+        {                        
+            if (currentWeapon == 0)
+            {
+                currentWeapon = unlockedWeapons.Count - 1;
+            }
+            else
+            {
+                currentWeapon--;
+            }
+            Change(currentWeapon);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && unlockedWeapons.Count > 1)
         {
-            Change();
-        } 
-        
-        if (Input.GetKeyDown(KeyCode.F))
+            Change(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2) && unlockedWeapons.Count > 1)
+        {
+            Change(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && unlockedWeapons.Count > 2)
+        {
+            Change(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && onCollision == true)
         {
             isStaying = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            for (int i = 0; i < unlockedWeapons.Count; i++)
+            {
+                if (unlockedWeapons[i].activeInHierarchy)
+                {
+                    for (int j = 0; j < droppedWeapons.Length; j++)
+                    {
+                        if (unlockedWeapons[i].name == droppedWeapons[j].name)
+                        {
+                            GameObject newWeapon = Instantiate(droppedWeapons[j], transform.position, droppedWeapons[j].transform.rotation);
+                            newWeapon.name = unlockedWeapons[i].name;
+                        }
+                    }
+
+                    Change(i - 1);
+
+                    unlockedWeapons.RemoveAt(i);
+
+                    break;
+                }
+            }
         }
 
         if (unlockedWeapons[0].activeInHierarchy && unlockedWeapons[0].name == "Kick")
         {
             currentIcon.enabled = false;
-            ammo.enabled = false;
+            ammoText.enabled = false;
         }
         else
         {
             currentIcon.enabled = true;
-            ammo.enabled = true;
-        }
-
-        if (unlockedWeapons.Count == 3)
-        {
-            Change();
-            unlockedWeapons.RemoveAt(0);
+            ammoText.enabled = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
-    {                                   
-        if (isStaying == true)
-        {
-            if (unlockedWeapons[0].activeInHierarchy == false && unlockedWeapons.Count == 3)
-            {
-                for (int i = 0; i < droppedWeapons.Length; i++)
-                {
-                    if (unlockedWeapons[i].name == droppedWeapons[i].name)
-                    {
-                        if (unlockedWeapons[i].activeInHierarchy)
-                        {
-                            GameObject weapon = Instantiate(droppedWeapons[i], transform.position, droppedWeapons[i].transform.rotation);
-                            weapon.name = unlockedWeapons[1].name;
-                        }                      
-                    }
-                }
-                Change();
-                unlockedWeapons.RemoveAt(1);
-            }
+    {
+        onCollision = true;
 
+        if (isStaying == true)
+        {           
             if (collision.CompareTag("Weapon") && unlockedWeapons.Count != 3)
             {
                 for (int i = 0; i < Weapons.Length; i++)
@@ -71,9 +111,12 @@ public class Weapon_Change : MonoBehaviour
                     if (collision.name == Weapons[i].name)
                     {
                         unlockedWeapons.Add(Weapons[i]);
+
+                        Change(unlockedWeapons.Count - 1);
+
+                        break;
                     }
-                }
-                Change();
+                }               
                 Destroy(collision.gameObject);
             }
 
@@ -81,40 +124,30 @@ public class Weapon_Change : MonoBehaviour
         }
     }
 
-    public void Change()
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        onCollision = false;
+    }
+
+    public void Change(int numberOfWeapon)
     {
         for (int i = 0; i < unlockedWeapons.Count; i++)
         {
-           
             if (unlockedWeapons[i].activeInHierarchy)
             {
-                   unlockedWeapons[i].SetActive(false);
-                 if (i != 0)
-                 {
-                     unlockedWeapons[i - 1].SetActive(true);
-                     for (int j = 0; j < weaponIcons.Length; j++)
-                     {
-                         if (unlockedWeapons[i - 1].name == weaponIcons[j].name)
-                         {
-                            currentIcon.sprite = weaponIcons[j].GetComponent<SpriteRenderer>().sprite;
-                         }
-                     }
-                 }
-                 else
-                 {
-                     unlockedWeapons[unlockedWeapons.Count - 1].SetActive(true);
-                     for (int j = 0; j < weaponIcons.Length; j++)
-                     {
-                         if (unlockedWeapons[unlockedWeapons.Count - 1].name == weaponIcons[j].name)
-                         {
-                            currentIcon.sprite = weaponIcons[j].GetComponent<SpriteRenderer>().sprite;
-                         }
-                     }
-                 }
+                unlockedWeapons[i].SetActive(false);
+                unlockedWeapons[numberOfWeapon].SetActive(true);
+                for (int j = 0; j < weaponIcons.Length; j++)
+                {
+                    if (unlockedWeapons[numberOfWeapon].name == weaponIcons[j].name)
+                    {
+                        currentIcon.sprite = weaponIcons[j].GetComponent<SpriteRenderer>().sprite;
+                    }
+                }
 
                 currentIcon.SetNativeSize();
                 break;
-            }            
-        }
+            }
+        }              
     }
 }

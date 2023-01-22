@@ -9,8 +9,7 @@ public class Player_Control : MonoBehaviour
     private float realSpeed;
     private Rigidbody2D rb;
     public float maxHealth = 10f;
-    public float currenHealth;
-    public HealthBar healthBar;
+    float currentHealth;
     public Animator legsAnim;
     public Animator bodyAnim;
 
@@ -21,8 +20,7 @@ public class Player_Control : MonoBehaviour
         //тут берет и присвоен компонент или перменная.
         rb = GetComponent<Rigidbody2D>();
         realSpeed = speed;
-        currenHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        currentHealth = maxHealth;
     }
     void Update()
     {
@@ -51,20 +49,18 @@ public class Player_Control : MonoBehaviour
 
     public void TakeHit(float damage)
     {
-        currenHealth -= damage;
-        healthBar.Sethealth(currenHealth);
-        if (currenHealth <= 0)
+        currentHealth -= damage;
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
     }
     public void AddHealth(float _value)
     {
-        currenHealth += _value;
-        healthBar.Sethealth(currenHealth);
-        if (currenHealth >= 10)
+        currentHealth += _value;
+        if (currentHealth >= 10)
         {
-            currenHealth = 10;
+            currentHealth = 10;
         }
     }
     void shiftRun()
