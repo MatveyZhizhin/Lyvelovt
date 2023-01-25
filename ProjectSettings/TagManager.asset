@@ -8,7 +8,6 @@ TagManager:
   - Objects
   - Weapon
   - Bullet
-  - DialogZone
   layers:
   - Default
   - TransparentFX

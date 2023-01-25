@@ -14,32 +14,45 @@ public class Weapon_Change : MonoBehaviour
     bool isStaying;
     bool onCollision;
     int currentWeapon = 0;
+    float timeBtwScroll;
+    public float startTimeBtwScroll;
 
     private void Update()
     {
-        if(Input.GetAxis("Mouse ScrollWheel") > 0 && unlockedWeapons.Count > 1)
-        {                      
-            if (currentWeapon == unlockedWeapons.Count - 1)
+        if (timeBtwScroll <= 0)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && unlockedWeapons.Count > 1)
             {
-                currentWeapon = 0;
+                if (currentWeapon == unlockedWeapons.Count - 1)
+                {
+                    currentWeapon = 0;
+                }
+                else
+                {
+                    currentWeapon++;
+                }
+                Change(currentWeapon);
+
+                timeBtwScroll = startTimeBtwScroll;
             }
-            else
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && unlockedWeapons.Count > 1)
             {
-                currentWeapon++;
-            }
-            Change(currentWeapon);
+                if (currentWeapon == 0)
+                {
+                    currentWeapon = unlockedWeapons.Count - 1;
+                }
+                else
+                {
+                    currentWeapon--;
+                }
+                Change(currentWeapon);
+
+                timeBtwScroll = startTimeBtwScroll;
+            }           
         }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0 && unlockedWeapons.Count > 1)
-        {                        
-            if (currentWeapon == 0)
-            {
-                currentWeapon = unlockedWeapons.Count - 1;
-            }
-            else
-            {
-                currentWeapon--;
-            }
-            Change(currentWeapon);
+        else
+        {
+            timeBtwScroll -= Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && unlockedWeapons.Count > 1)
@@ -62,7 +75,7 @@ public class Weapon_Change : MonoBehaviour
             isStaying = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && unlockedWeapons.Count > 1)
         {
             for (int i = 0; i < unlockedWeapons.Count; i++)
             {
