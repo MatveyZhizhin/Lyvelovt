@@ -35,46 +35,49 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         ammoText.text = ammo + "/60";
-        if (fireType == FireType.burst)
+        if (Time.timeScale == 1)
         {
-            if(Input.GetMouseButtonDown(0) && fire == false && isReloading == false && ammo > 0)
+            if (fireType == FireType.burst)
             {
-                fire = true;
-                StartCoroutine(Burst());             
+                if (Input.GetMouseButtonDown(0) && fire == false && isReloading == false && ammo > 0)
+                {
+                    fire = true;
+                    StartCoroutine(Burst());
+                }
             }
-        }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (fireType == FireType.fire)
+            if (Input.GetMouseButtonDown(1))
             {
-                fireType = FireType.burst;
+                if (fireType == FireType.fire)
+                {
+                    fireType = FireType.burst;
+                }
+                else
+                {
+                    fireType = FireType.fire;
+                }
+            }
+
+            if (timeBtwShots <= 0)
+            {
+                if (Input.GetMouseButton(0) && fireType == FireType.fire && isReloading == false && ammo > 0)
+                {
+                    Instantiate(bullet, shotPoint.position, transform.rotation);
+                    ammo--;
+                    timeBtwShots = startTimeBtwShots;
+                }
             }
             else
             {
-                fireType = FireType.fire;
+                timeBtwShots -= Time.deltaTime;
             }
-        }
 
-        if (timeBtwShots <= 0)
-        {
-            if (Input.GetMouseButton(0) && fireType == FireType.fire && isReloading == false && ammo > 0)
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                Instantiate(bullet, shotPoint.position, transform.rotation);
-                ammo--;
-                timeBtwShots = startTimeBtwShots;
+                isReloading = true;
+                StartCoroutine(Reload());
             }
-        }      
-        else
-        {
-            timeBtwShots -= Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            isReloading = true;
-            StartCoroutine(Reload());
-        }
+        }     
     }
 
     IEnumerator Burst()

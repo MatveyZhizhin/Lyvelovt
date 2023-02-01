@@ -84,7 +84,7 @@ TextureImporter:
       213: 3857516292093768483
     second: hud_26
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -105,6 +105,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -143,6 +144,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -170,6 +172,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -760,6 +786,34 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      hud_4: -5356235205854507632
+      hud_25: 5227706336027526891
+      hud_22: 5805456392269864764
+      hud_15: -5867601065980497780
+      hud_3: 7436860926580171409
+      hud_5: 7000286213710170695
+      hud_6: -3265510624760232496
+      hud_0: -8355878931891455547
+      hud_12: -8198134604075662670
+      hud_9: -8115304365486302945
+      hud_1: 799499406603659676
+      hud_20: 7146671329355084749
+      hud_18: -4519031521348549980
+      hud_10: 6625234565909521172
+      hud_8: 4162731277323802494
+      hud_24: -3651911838383698933
+      hud_11: 4995528953559091192
+      hud_2: -7801491425260804980
+      hud_13: 7436786116260892006
+      hud_14: 608734835209051216
+      hud_23: 9072608998986983123
+      hud_17: -8995782541248983973
+      hud_16: 835613917238440801
+      hud_19: 4841367913988442963
+      hud_7: 9165623242308869086
+      hud_21: -3597964420892295022
+      hud_26: 3857516292093768483
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

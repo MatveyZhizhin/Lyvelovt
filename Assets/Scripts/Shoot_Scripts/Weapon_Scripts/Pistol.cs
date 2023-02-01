@@ -24,24 +24,27 @@ public class Pistol : MonoBehaviour
     void Update()
     {
         ammoText.text = ammo + "/30";
-        if(timeBtwShots <= 0)
+        if (Time.timeScale == 1)
         {
-            if (Input.GetMouseButtonDown(0) && isReloading == false && ammo > 0)
+            if (timeBtwShots <= 0)
             {
-                Instantiate(bullet, shotPoint.transform.position, transform.rotation);
-                ammo--;
-                timeBtwShots = startTimeBtwShots;
-            }         
-        }
-        else
-        {
-            timeBtwShots -= Time.deltaTime;
-        }
+                if (Input.GetMouseButtonDown(0) && isReloading == false && ammo > 0)
+                {
+                    Instantiate(bullet, shotPoint.transform.position, transform.rotation);
+                    ammo--;
+                    timeBtwShots = startTimeBtwShots;
+                }
+            }
+            else
+            {
+                timeBtwShots -= Time.deltaTime;
+            }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            isReloading = true;
-            StartCoroutine(Reload());
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                isReloading = true;
+                StartCoroutine(Reload());
+            }
         }
     }
 

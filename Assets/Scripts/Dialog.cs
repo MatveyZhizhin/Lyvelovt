@@ -20,12 +20,14 @@ public class Dialog : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && isCollision == true)
         {
-            isStaying = true;
+            dialogWindow.enabled = true;
+            Time.timeScale = 0;
+            cs.enabled = false;
+            Cursor.visible = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && dialogWindow.enabled == true)
         {
-            isStaying = false;
             dialogWindow.enabled = false;
             Time.timeScale = 1;
             cs.enabled = true;
@@ -33,19 +35,11 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isCollision = true;
-
-        if (isStaying == true)
+        if (collision.CompareTag("Player"))
         {
-            if (collision.CompareTag("Player"))
-            {
-                dialogWindow.enabled = true;
-                Time.timeScale = 0;
-                cs.enabled = false;
-                Cursor.visible = true;
-            }
+            isCollision = true;
         }
     }
 
