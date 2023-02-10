@@ -8,6 +8,7 @@ public class Kick : MonoBehaviour
     public float startTimeBtwAttack;
     public float range;
     public Transform attackPoint;
+    public int damage;
     Animator animator;
 
     private void Start()
@@ -41,7 +42,7 @@ public class Kick : MonoBehaviour
         {
             if (enemies[i].CompareTag("Enemy"))
             {
-                Destroy(enemies[i].gameObject);
+                enemies[i].GetComponent<EnemyHealth>().TakeHit(damage);
             }
         }
     }

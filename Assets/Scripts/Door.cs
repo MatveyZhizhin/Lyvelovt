@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Animator anim;
+    Animator anim;
     bool isOpened;
-    Player_Control pc;
     float timer;
-    public Animator playerAnim;
+    //public Animator playerAnim;
     bool isCollision;
     public GameObject door;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        pc = FindObjectOfType<Player_Control>();
     }
 
     private void Update()
@@ -24,38 +22,56 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && isOpened == false)
             {
-                anim.SetBool("isOpened", true);
+                anim.SetTrigger("Open");
                 isOpened = true;
             }
-            else
+            else if (Input.GetKeyDown(KeyCode.E) && isOpened == true)
             {
-                anim.SetBool("isOpened", false);
+                anim.SetTrigger("Close");
                 isOpened = false;
             }
+            
+            
 
-            if (pc.speed == 10 && isOpened == false)
+         
+           /* if (isOpened == false)
             {
                 if (timer >= 1)
                 {
+                    
                     playerAnim.SetTrigger("Leg");
-                    anim.SetTrigger("fastOpening");                    
+                    anim.SetTrigger("FastOpen");                    
                     timer = 0;
                     isOpened = true;
-                }
-                else if (timer >= 3)
-                {
-                    playerAnim.SetTrigger("Leg");
-                    playerAnim.SetTrigger("disableDoor");
-                    door.GetComponent<Collider2D>().enabled = false;
-                    timer = 0;
-                    this.enabled = false;
-                }
-                else
-                {
-                    timer += Time.deltaTime;
-                }
+                } 
+                  else if (timer >= 3)
+                  {
+                      playerAnim.SetTrigger("Leg");
+                      playerAnim.SetTrigger("disableDoor");
+                      door.GetComponent<Collider2D>().enabled = false;
+                      timer = 0;
+                      this.enabled = false;
+                  }
+               
             }
-        }        
+           */
+        }            
+      
+       /*
+        if (timer > 3)
+        {
+            timer = 0;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            timer += Time.deltaTime;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            timer = 0;
+        }
+      */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

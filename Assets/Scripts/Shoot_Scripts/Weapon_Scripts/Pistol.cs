@@ -8,7 +8,7 @@ public class Pistol : MonoBehaviour
     public Transform shotPoint;
     public GameObject bullet;
     public float startTimeBtwShots;
-    public Text ammoText;   
+    public Text ammoText;
     public int maxAmmo;
 
     float timeBtwShots;
