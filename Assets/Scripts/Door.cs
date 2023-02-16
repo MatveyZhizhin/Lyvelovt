@@ -34,30 +34,32 @@ public class Door : MonoBehaviour
             
 
          
-           /* if (isOpened == false)
+            if (isOpened == false)
             {
                 if (timer >= 1)
                 {
                     
-                    playerAnim.SetTrigger("Leg");
+                    //playerAnim.SetTrigger("Leg");
                     anim.SetTrigger("FastOpen");                    
                     timer = 0;
                     isOpened = true;
-                } 
-                  else if (timer >= 3)
-                  {
-                      playerAnim.SetTrigger("Leg");
-                      playerAnim.SetTrigger("disableDoor");
-                      door.GetComponent<Collider2D>().enabled = false;
-                      timer = 0;
-                      this.enabled = false;
-                  }
-               
+                    this.enabled = false;
+                }
+                /*
+                else if (timer >= 3)
+                {
+                     playerAnim.SetTrigger("Leg");
+                     playerAnim.SetTrigger("disableDoor");
+                     door.GetComponent<Collider2D>().enabled = false;
+                     timer = 0;
+                     this.enabled = false;
+                }
+               */
             }
-           */
+           
         }            
       
-       /*
+       
         if (timer > 3)
         {
             timer = 0;
@@ -71,7 +73,7 @@ public class Door : MonoBehaviour
         {
             timer = 0;
         }
-      */
+      
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

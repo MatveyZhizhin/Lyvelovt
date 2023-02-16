@@ -11,11 +11,17 @@ public class Weapon_Change : MonoBehaviour
     public GameObject[] droppedWeapons;
     public Image currentIcon;
     public Text ammoText;
+    public Text text;
     bool isStaying;
     bool onCollision;
     int currentWeapon = 0;
     float timeBtwScroll;
     public float startTimeBtwScroll;
+
+    private void Start()
+    {
+        text.enabled = false;
+    }
 
     private void Update()
     {
@@ -115,10 +121,16 @@ public class Weapon_Change : MonoBehaviour
     {
         onCollision = true;
 
+        if (collision.CompareTag("Weapon"))
+        {
+            text.enabled = true;
+            text.text = "Подобрать оружие(F)";
+        }
+
         if (isStaying == true)
         {           
             if (collision.CompareTag("Weapon") && unlockedWeapons.Count != 3)
-            {
+            {                
                 for (int i = 0; i < Weapons.Length; i++)
                 {
                     if (collision.name == Weapons[i].name)
@@ -139,6 +151,7 @@ public class Weapon_Change : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        text.enabled = false;
         onCollision = false;
     }
 
