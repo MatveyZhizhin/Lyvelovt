@@ -160,7 +160,7 @@ public class Weapon_Change : MonoBehaviour
         for (int i = 0; i < unlockedWeapons.Count; i++)
         {
             if (unlockedWeapons[i].activeInHierarchy)
-            {
+            {               
                 unlockedWeapons[i].SetActive(false);
                 unlockedWeapons[numberOfWeapon].SetActive(true);
                 for (int j = 0; j < weaponIcons.Length; j++)

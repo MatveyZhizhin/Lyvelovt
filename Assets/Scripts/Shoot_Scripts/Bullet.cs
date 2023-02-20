@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     {      
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, solid);
         if (hitInfo.collider != null && hitInfo.collider.tag != "DialogZone")
-        {
+        {            
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 hitInfo.collider.GetComponent<EnemyHealth>().TakeHit(damage);                

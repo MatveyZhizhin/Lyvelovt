@@ -30,7 +30,8 @@ public class Pistol : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && isReloading == false && ammo > 0)
                 {
-                    Instantiate(bullet, shotPoint.transform.position, transform.rotation);
+                    GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
+                    newBullet.GetComponent<Bullet>().damage = 7;
                     ammo--;
                     timeBtwShots = startTimeBtwShots;
                 }
@@ -50,8 +51,10 @@ public class Pistol : MonoBehaviour
 
     IEnumerator Reload()
     {
+        FindObjectOfType<Weapon_Change>().enabled = false;
         yield return new WaitForSeconds(clipSize);
         ammo = maxAmmo;
         isReloading = false;
+        FindObjectOfType<Weapon_Change>().enabled = true;
     }
 }

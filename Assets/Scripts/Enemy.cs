@@ -32,7 +32,8 @@ public class Enemy : MonoBehaviour
         }
         else if (distanceFromPlayer <= shootRange && nextFireTime < Time.time)
         {
-            Instantiate(bullet, bulletParent.transform.position, transform.rotation);
+            GameObject newBullet = Instantiate(bullet, bulletParent.transform.position, transform.rotation);
+            newBullet.GetComponent<EnemyBullet>().damage = 7;
             nextFireTime = Time.time + fireRate;
         }
     }

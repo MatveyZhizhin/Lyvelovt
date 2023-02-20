@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class Gun : MonoBehaviour
     int ammo;
     public int maxAmmo;
     public Text ammoText;
+    public int damage;
 
     public Transform shotPoint;
     public GameObject bullet;
@@ -62,7 +64,8 @@ public class Gun : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && fireType == FireType.fire && isReloading == false && ammo > 0)
                 {
-                    Instantiate(bullet, shotPoint.position, transform.rotation);
+                    GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
+                    newBullet.GetComponent<Bullet>().damage = 3;
                     ammo--;
                     timeBtwShots = startTimeBtwShots;
                 }
@@ -72,7 +75,7 @@ public class Gun : MonoBehaviour
                 timeBtwShots -= Time.deltaTime;
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && ammo != maxAmmo)
             {
                 isReloading = true;
                 StartCoroutine(Reload());
@@ -83,9 +86,10 @@ public class Gun : MonoBehaviour
     IEnumerator Burst()
     {       
        for (var i = 0; i < bullets; i++)
-       {        
-          Instantiate(bullet, shotPoint.position, transform.rotation);
-          ammo--;
+       {
+            GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
+            newBullet.GetComponent<Bullet>().damage = 3;
+            ammo--;
           yield return new WaitForSeconds(fireRate);
        }
        yield return new WaitForSeconds(coolDown);
@@ -93,9 +97,11 @@ public class Gun : MonoBehaviour
     }
 
     IEnumerator Reload()
-    {       
+    {
+        FindObjectOfType<Weapon_Change>().enabled = false;
         yield return new WaitForSeconds(clipSize);
         ammo = maxAmmo;
         isReloading = false;
+        FindObjectOfType<Weapon_Change>().enabled = true;
     }
 }

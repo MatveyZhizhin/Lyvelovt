@@ -49,15 +49,18 @@ public class Shotgun : MonoBehaviour
     {
         for (int i = 0; i < shotPoints.Length; i++)
         {
-            Instantiate(bullet, shotPoints[i].transform.position, shotPoints[i].transform.rotation);
+            GameObject newBullet = Instantiate(bullet, shotPoints[i].transform.position, shotPoints[i].transform.rotation);
+            newBullet.GetComponent<Bullet>().damage = 5;
             ammo--;
         }
     }
 
     IEnumerator Reload()
     {
+        FindObjectOfType<Weapon_Change>().enabled = false;
         yield return new WaitForSeconds(clipSize);
         ammo = maxAmmo;
         isReloading = false;
+        FindObjectOfType<Weapon_Change>().enabled = true;
     }
 }
