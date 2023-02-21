@@ -10,10 +10,11 @@ public class Door : MonoBehaviour
     //public Animator playerAnim;
     bool isCollision;
     public GameObject door;
+    public Collider2D col;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInParent<Animator>();
     }
 
     private void Update()
@@ -36,7 +37,7 @@ public class Door : MonoBehaviour
          
             if (isOpened == false)
             {
-                if (timer >= 1)
+                if (timer >= 1 && timer < 3)
                 {
                     
                     //playerAnim.SetTrigger("Leg");
@@ -45,22 +46,21 @@ public class Door : MonoBehaviour
                     isOpened = true;
                     this.enabled = false;
                 }
-                /*
                 else if (timer >= 3)
                 {
-                     playerAnim.SetTrigger("Leg");
-                     playerAnim.SetTrigger("disableDoor");
-                     door.GetComponent<Collider2D>().enabled = false;
+                     //playerAnim.SetTrigger("Leg");
+                     anim.SetTrigger("DisableDoor");
+                     col.enabled = false;
                      timer = 0;
                      this.enabled = false;
                 }
-               */
+               
             }
            
         }            
       
        
-        if (timer > 3)
+        if (timer > 5)
         {
             timer = 0;
         }

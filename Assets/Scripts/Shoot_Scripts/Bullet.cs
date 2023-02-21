@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {      
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, solid);
-        if (hitInfo.collider != null && hitInfo.collider.tag != "DialogZone")
+        if (hitInfo.collider != null && hitInfo.collider.isTrigger == false)
         {            
             if (hitInfo.collider.CompareTag("Enemy"))
             {
