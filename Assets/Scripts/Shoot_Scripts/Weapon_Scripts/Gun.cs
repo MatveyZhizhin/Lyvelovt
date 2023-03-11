@@ -35,6 +35,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+
         ammoText.text = ammo + "/60";
         if (Time.timeScale == 1)
         {
@@ -63,8 +64,7 @@ public class Gun : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && fireType == FireType.fire && isReloading == false && ammo > 0)
                 {
-                    GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
-                    newBullet.GetComponent<Bullet>().damage = 3;
+                    Instantiate(bullet, shotPoint.transform.position, transform.rotation);                    
                     ammo--;
                     timeBtwShots = startTimeBtwShots;
                 }
@@ -86,8 +86,7 @@ public class Gun : MonoBehaviour
     {       
        for (var i = 0; i < bullets; i++)
        {
-            GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
-            newBullet.GetComponent<Bullet>().damage = 3;
+            Instantiate(bullet, shotPoint.transform.position, transform.rotation);
             ammo--;
           yield return new WaitForSeconds(fireRate);
        }

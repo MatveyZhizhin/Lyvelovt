@@ -9,12 +9,10 @@ public class Door : MonoBehaviour
     float timer;
     //public Animator playerAnim;
     bool isCollision;
-    public GameObject door;
-    public Collider2D col;
 
     private void Start()
     {
-        anim = GetComponentInParent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -50,7 +48,7 @@ public class Door : MonoBehaviour
                 {
                      //playerAnim.SetTrigger("Leg");
                      anim.SetTrigger("DisableDoor");
-                     col.enabled = false;
+                     gameObject.GetComponent<Collider2D>().enabled = false;
                      timer = 0;
                      this.enabled = false;
                 }

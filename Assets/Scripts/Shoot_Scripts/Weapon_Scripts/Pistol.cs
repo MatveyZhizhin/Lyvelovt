@@ -30,8 +30,7 @@ public class Pistol : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && isReloading == false && ammo > 0)
                 {
-                    GameObject newBullet = Instantiate(bullet, shotPoint.transform.position, transform.rotation);
-                    newBullet.GetComponent<Bullet>().damage = 7;
+                    Instantiate(bullet, shotPoint.transform.position, transform.rotation);                   
                     ammo--;
                     timeBtwShots = startTimeBtwShots;
                 }

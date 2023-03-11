@@ -13,7 +13,7 @@ public class Player_Control : MonoBehaviour
     public Animator legsAnim;
     public Animator bodyAnim;
 
-    Vector2 movement;
+    public Vector2 movement;
     void Start()
     {
         Cursor.visible = false;

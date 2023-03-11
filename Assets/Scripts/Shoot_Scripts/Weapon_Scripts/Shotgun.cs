@@ -49,8 +49,7 @@ public class Shotgun : MonoBehaviour
     {
         for (int i = 0; i < shotPoints.Length; i++)
         {
-            GameObject newBullet = Instantiate(bullet, shotPoints[i].transform.position, shotPoints[i].transform.rotation);
-            newBullet.GetComponent<Bullet>().damage = 5;
+            Instantiate(bullet, shotPoints[i].transform.position, shotPoints[i].transform.rotation);            
             ammo--;
         }
     }
