@@ -30,8 +30,8 @@ public class Player_Control : MonoBehaviour
 
         if (movement.x == 0 && movement.y == 0)
         {
-            legsAnim.SetBool("isRunning", false);
-            bodyAnim.SetBool("isRunning", false);
+            legsAnim.SetBool("isRunning", false);                       
+            bodyAnim.SetBool("isRunning", false);                     
         }
         else
         {

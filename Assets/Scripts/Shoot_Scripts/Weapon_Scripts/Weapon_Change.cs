@@ -24,7 +24,8 @@ public class Weapon_Change : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
+
         if (timeBtwScroll <= 0)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && unlockedWeapons.Count > 1)

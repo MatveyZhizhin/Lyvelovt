@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Reset : MonoBehaviour
 {
-    public void OnClickResetButton()
+    private void Update()
     {
-        SceneManager.LoadScene(0);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
